@@ -12,7 +12,7 @@ void FigureCircle::CreateOutlineClock(sf::Vector2f const& windowCenter)
 	clockCircle.setPosition(windowCenter.x + clockCircleThickness, windowCenter.y + clockCircleThickness);
 }
 
-void FigureCircle::Create—ircleAtCenter(sf::Vector2f const& windowCenter)
+void FigureCircle::CreateCircleAtCenter(sf::Vector2f const& windowCenter)
 {
 	centerCircle.setRadius(10);
 	centerCircle.setPointCount(100);
@@ -24,5 +24,5 @@ void FigureCircle::Create—ircleAtCenter(sf::Vector2f const& windowCenter)
 void InitializeCircle(FigureCircle &circle, sf::Vector2f const& windowCenter)
 {
 	circle.CreateOutlineClock(windowCenter);
-	circle.Create—ircleAtCenter(windowCenter);
+	circle.Create–°ircleAtCenter(windowCenter);
 }
