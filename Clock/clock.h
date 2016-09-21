@@ -12,4 +12,4 @@ struct Clocks
 	void Clocks::CreateTimeHands(sf::Vector2f const& windowCenter);
 };
 
-void InitializeClock(Clocks &clock, sf::Vector2f windowCenter);
+void InitializeClock(Clocks &clock, sf::Vector2f const& windowCenter);

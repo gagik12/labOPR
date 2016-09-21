@@ -21,7 +21,7 @@ void FigureCircle::Create—ircleAtCenter(sf::Vector2f const& windowCenter)
 	centerCircle.setPosition(windowCenter);
 }
 
-void InitializeCircle(FigureCircle &circle, sf::Vector2f windowCenter)
+void InitializeCircle(FigureCircle &circle, sf::Vector2f const& windowCenter)
 {
 	circle.CreateOutlineClock(windowCenter);
 	circle.Create—ircleAtCenter(windowCenter);

@@ -43,7 +43,7 @@ void Clocks::CreateTimeHands(sf::Vector2f const& windowCenter)
 }
 
 
-void InitializeClock(Clocks &clock, sf::Vector2f windowCenter)
+void InitializeClock(Clocks &clock, sf::Vector2f const& windowCenter)
 {
 	clock.CreateListDots(windowCenter);
 	clock.CreateTimeHands(windowCenter);

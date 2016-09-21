@@ -10,4 +10,4 @@ struct FigureCircle
 	void FigureCircle::Create—ircleAtCenter(sf::Vector2f const& windowCenter);
 };
 
-void InitializeCircle(FigureCircle &circle, sf::Vector2f windowCenter);
+void InitializeCircle(FigureCircle &circle, sf::Vector2f const& windowCenter);

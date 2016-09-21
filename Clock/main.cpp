@@ -6,6 +6,11 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
+struct Application
+{
+	FigureCircle circle;
+	Clocks clock;
+};
 
 void ProcessingEvent(sf::RenderWindow &window)
 {
@@ -53,14 +58,20 @@ void SeTheTimeForClockHands(Clocks &clock)
 	clock.secondsHand.setRotation(ptm.tm_sec * 6);
 }
 
-void RunMainLoop(sf::RenderWindow &window, Clocks & clock, FigureCircle const& circle)
+void ApplicationMainLoop(sf::RenderWindow &window, Application & application)
 {
 	while (window.isOpen())
 	{
 		ProcessingEvent(window);
-		SeTheTimeForClockHands(clock);
-		Render(window, clock, circle);
+		SeTheTimeForClockHands(application.clock);
+		Render(window, application.clock, application.circle);
 	}
+}
+
+void InitializeApplication(Application &application, sf::Vector2f const& windowCenter)
+{
+	InitializeCircle(application.circle, windowCenter);
+	InitializeClock(application.clock, windowCenter);
 }
 
 int main()
@@ -72,11 +83,8 @@ int main()
 
 	sf::Vector2f windowCenter = sf::Vector2f(window.getSize().x / 2.0f, window.getSize().y / 2.0f);
 
-	FigureCircle circle;
-	InitializeCircle(circle, windowCenter);
-
-	Clocks clock;
-	InitializeClock(clock, windowCenter);
+	Application application;
+	InitializeApplication(application, windowCenter);
 
 	// Create sound effect
 	sf::SoundBuffer clockSoundBuffer;
@@ -89,32 +97,9 @@ int main()
 	clockTick.setLoop(true);
 	
 
-	// Use a part of SFML logo as clock brand
-	sf::Texture clockBrand;
-	if (!clockBrand.loadFromFile("resources/clock-brand.png"))
-	{
-		//return EXIT_FAILURE;
-	}
+	application.circle.clockCircle.setTextureRect(sf::IntRect(40, 0, 500, 500));
 
-	sf::Sprite clockBrandSprite;
-	clockBrandSprite.setTexture(clockBrand);
-	clockBrandSprite.setOrigin(clockBrandSprite.getTextureRect().left + clockBrandSprite.getTextureRect().width / 2.0f,
-		clockBrandSprite.getTextureRect().top + clockBrandSprite.getTextureRect().height / 2.0f);
-
-	clockBrandSprite.setPosition(window.getSize().x / 2, window.getSize().y - 100);
-
-
-	// Create clock background
-	sf::Texture clockImage;
-	if (!clockImage.loadFromFile("resources/clock-image.png"))
-	{
-		//return EXIT_FAILURE;
-	}
-
-	circle.clockCircle.setTexture(&clockImage);
-	circle.clockCircle.setTextureRect(sf::IntRect(40, 0, 500, 500));
-
-	RunMainLoop(window, clock, circle);
+	ApplicationMainLoop(window, application);
 
 	return EXIT_SUCCESS;
 }
