@@ -34,6 +34,12 @@ void Render(sf::RenderWindow &window, Clocks const& clock, FigureCircle const& c
 		window.draw(clock.dot[i]);
 	}
 
+	for (int i = 0; i<12; i++)
+	{
+		window.draw(clock.digit[i]);
+	}
+	window.draw(clock.digit[0]);
+
 	window.draw(clock.hourHand);
 	window.draw(clock.minuteHand);
 	window.draw(clock.secondsHand);
@@ -86,7 +92,7 @@ int main()
 	InitializeApplication(application, windowCenter);
 
 	sf::Music clockTick;
-	if (!clockTick.openFromFile("resources/clock-1.wav"))
+	if (!clockTick.openFromFile("resources/sound/clock-1.wav"))
 	{
 		return EXIT_FAILURE;
 	}
