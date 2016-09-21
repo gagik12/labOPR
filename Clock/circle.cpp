@@ -24,5 +24,5 @@ void FigureCircle::CreateCircleAtCenter(sf::Vector2f const& windowCenter)
 void InitializeCircle(FigureCircle &circle, sf::Vector2f const& windowCenter)
 {
 	circle.CreateOutlineClock(windowCenter);
-	circle.CreateСircleAtCenter(windowCenter);
+	circle.CreateCircleAtCenter(windowCenter);
 }
