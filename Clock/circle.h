@@ -7,7 +7,7 @@ struct FigureCircle
 	sf::CircleShape centerCircle;
 
 	void FigureCircle::CreateOutlineClock(sf::Vector2f const& windowCenter);
-	void FigureCircle::Create—ircleAtCenter(sf::Vector2f const& windowCenter);
+	void FigureCircle::CreateCircleAtCenter(sf::Vector2f const& windowCenter);
 };
 
 void InitializeCircle(FigureCircle &circle, sf::Vector2f const& windowCenter);
