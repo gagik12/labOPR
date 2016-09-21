@@ -13,24 +13,24 @@ static const int clockCircleThickness = 2;
  
 struct Clocks
 {
+	int x, y;
+	float angle = 0.0;
+	sf::CircleShape dot[60];
 
+	void Clocks::CreateListDots(sf::Vector2f const& windowCenter);
 };
 
 struct FigureCircle
 {
-	int x, y;
-	float angle = 0.0;
-	sf::CircleShape dot[60];
 	sf::CircleShape clockCircle;
 	sf::CircleShape centerCircle;
 
-	void FigureCircle::CreateListDots(sf::Vector2f const& windowCenter);
 	void FigureCircle::CreateOutlineClock(sf::Vector2f const& windowCenter);
-	void FigureCircle::Create—ircleAtCenter(sf::Vector2f const& windowCenter);
+	void FigureCircle::Create–°ircleAtCenter(sf::Vector2f const& windowCenter);
 };
 
 
-void FigureCircle::CreateListDots(sf::Vector2f const& windowCenter)
+void Clocks::CreateListDots(sf::Vector2f const& windowCenter)
 {
 	for (int i = 0; i<60; i++)
 	{
@@ -59,7 +59,7 @@ void FigureCircle::CreateOutlineClock(sf::Vector2f const& windowCenter)
 	clockCircle.setPosition(windowCenter.x + clockCircleThickness, windowCenter.y + clockCircleThickness);
 }
 
-void FigureCircle::Create—ircleAtCenter(sf::Vector2f const& windowCenter)
+void FigureCircle::Create–°ircleAtCenter(sf::Vector2f const& windowCenter)
 {
 	centerCircle.setRadius(10);
 	centerCircle.setPointCount(100);
@@ -70,9 +70,14 @@ void FigureCircle::Create—ircleAtCenter(sf::Vector2f const& windowCenter)
 
 void InitializeCircle(FigureCircle &circle, sf::Vector2f windowCenter)
 {
-	circle.CreateListDots(windowCenter);
+	//circle.CreateListDots(windowCenter);
 	circle.CreateOutlineClock(windowCenter);
-	circle.Create—ircleAtCenter(windowCenter);
+	circle.Create–°ircleAtCenter(windowCenter);
+}
+
+void InitializeClock(Clocks &clock, sf::Vector2f windowCenter)
+{
+	clock.CreateListDots(windowCenter);
 }
 
 void ProcessingEvent(sf::RenderWindow &window)
@@ -88,9 +93,6 @@ void ProcessingEvent(sf::RenderWindow &window)
 
 int main()
 {
-	const int clockCircleSize = 250;
-	const int clockCircleThickness = 2;
-
 	// Set multisampling level
 	sf::ContextSettings settings;
 	settings.antialiasingLevel = 8;
@@ -101,32 +103,11 @@ int main()
 	// Define windowCenter which gets the center of the window here, right after creating window
 	sf::Vector2f windowCenter = sf::Vector2f(window.getSize().x / 2.0f, window.getSize().y / 2.0f);
 
-
-
-
-
 	FigureCircle circle;
 	InitializeCircle(circle, windowCenter);
 
-	// Create a list for clock's dots
-
-
-	
-
-
-	// Crate another circle for center
-
-
-
-
-
-
-
-
-
-
-
-
+	Clocks clock;
+	InitializeClock(clock, windowCenter);
 
 	// Create hour, minute, and seconds hands
 	sf::RectangleShape hourHand(sf::Vector2f(5, 180));
@@ -202,7 +183,7 @@ int main()
 
 		for (int i = 0; i<60; i++)
 		{
-			window.draw(circle.dot[i]);
+			window.draw(clock.dot[i]);
 		}
 
 		window.draw(clockBrandSprite);
