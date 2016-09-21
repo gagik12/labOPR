@@ -23,7 +23,8 @@ void Clocks::CreateListDigit(sf::Vector2f const& windowCenter)
 		{
 			text.setString(std::to_string(number + 1));
 			digit[number] = text;
-			digit[number].setPosition(positionDigit.x + windowCenter.x, positionDigit.y + windowCenter.y - digit[number].getGlobalBounds().height / 2.f);
+			sf::Vector2f positionText(positionDigit + windowCenter);
+			digit[number].setPosition(positionText.x, positionText.y - digit[number].getGlobalBounds().height / 2.f);
 			digit[number].setOrigin(digit[number].getGlobalBounds().width / 2.f, digit[number].getGlobalBounds().height / 2.f);
 			++number;
 
@@ -52,7 +53,7 @@ void Clocks::CreateListDots(sf::Vector2f const& windowCenter)
 		}
 		dot[i].setFillColor(sf::Color::Black);
 		dot[i].setOrigin(dot[i].getGlobalBounds().width / 2, dot[i].getGlobalBounds().height / 2);
-		dot[i].setPosition(positionDot.x + windowCenter.x, positionDot.y + windowCenter.y);
+		dot[i].setPosition(positionDot + windowCenter);
 
 		angle = angle + ((2 * PI) / 60);
 	}
