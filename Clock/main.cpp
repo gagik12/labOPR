@@ -85,14 +85,13 @@ int main()
 	sf::ContextSettings settings;
 	settings.antialiasingLevel = 8;
 	sf::RenderWindow window(sf::VideoMode(screenWidth, screenHeight), "SFML Analog Clock", sf::Style::Close, settings);
-
 	sf::Vector2f windowCenter = sf::Vector2f(window.getSize().x / 2.0f, window.getSize().y / 2.0f);
 
 	Application application;
 	InitializeApplication(application, windowCenter);
 
 	sf::Music clockTick;
-	if (!clockTick.openFromFile("resources/sound/clock-1.wav"))
+	if (!clockTick.openFromFile("resources/sound/clock-1.ogg"))
 	{
 		return EXIT_FAILURE;
 	}
