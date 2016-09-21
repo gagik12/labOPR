@@ -12,9 +12,38 @@ void Clocks::CreateListDots(sf::Vector2f const& windowCenter)
 		positionDot.y = (clockCircleSize - 10) * sin(angle);
 
 		if (i % 5 == 0)
+		{
 			dot[i] = sf::CircleShape(3);
+		}
 		else
+		{
 			dot[i] = sf::CircleShape(1);
+		}
+		dot[i].setFillColor(sf::Color::Black);
+		dot[i].setOrigin(dot[i].getGlobalBounds().width / 2, dot[i].getGlobalBounds().height / 2);
+		dot[i].setPosition(positionDot.x + windowCenter.x, positionDot.y + windowCenter.y);
+
+		angle = angle + ((2 * PI) / 60);
+	}
+}
+
+void Clocks::CreateListDigit(sf::Vector2f const& windowCenter)
+{
+	float angle = 0.0;
+	sf::Vector2f positionDot;
+	for (int i = 0; i<60; i++)
+	{
+		positionDot.x = (clockCircleSize - 10) * cos(angle);
+		positionDot.y = (clockCircleSize - 10) * sin(angle);
+
+		if (i % 5 == 0)
+		{
+			dot[i] = sf::CircleShape(3);
+		}
+		else
+		{
+			dot[i] = sf::CircleShape(1);
+		}
 		dot[i].setFillColor(sf::Color::Black);
 		dot[i].setOrigin(dot[i].getGlobalBounds().width / 2, dot[i].getGlobalBounds().height / 2);
 		dot[i].setPosition(positionDot.x + windowCenter.x, positionDot.y + windowCenter.y);
