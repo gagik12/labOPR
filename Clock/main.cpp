@@ -5,8 +5,6 @@
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
-#include <ctime>
-#include <cmath>
 
 
 void ProcessingEvent(sf::RenderWindow &window)
@@ -36,6 +34,33 @@ void Render(sf::RenderWindow &window, Clocks const& clock, FigureCircle const& c
 	window.draw(clock.secondsHand);
 	window.draw(circle.centerCircle);
 	window.display();
+}
+
+struct tm GetSystemTime()
+{
+	std::time_t currentTime = std::time(NULL);
+	struct tm ptm;
+	localtime_s(&ptm, &currentTime);
+	return ptm;
+}
+
+void SeTheTimeForClockHands(Clocks &clock)
+{
+	struct tm ptm = GetSystemTime();
+
+	clock.hourHand.setRotation(ptm.tm_hour * 30 + (ptm.tm_min / 2));
+	clock.minuteHand.setRotation(ptm.tm_min * 6 + (ptm.tm_sec / 12));
+	clock.secondsHand.setRotation(ptm.tm_sec * 6);
+}
+
+void RunMainLoop(sf::RenderWindow &window, Clocks & clock, FigureCircle const& circle)
+{
+	while (window.isOpen())
+	{
+		ProcessingEvent(window);
+		SeTheTimeForClockHands(clock);
+		Render(window, clock, circle);
+	}
 }
 
 int main()
@@ -89,20 +114,7 @@ int main()
 	circle.clockCircle.setTexture(&clockImage);
 	circle.clockCircle.setTextureRect(sf::IntRect(40, 0, 500, 500));
 
-	while (window.isOpen())
-	{
-		ProcessingEvent(window);
-		// Get system time
-		std::time_t currentTime = std::time(NULL);
-
-		struct tm ptm;
-		localtime_s(&ptm, &currentTime);
-
-		clock.hourHand.setRotation(ptm.tm_hour * 30 + (ptm.tm_min / 2));
-		clock.minuteHand.setRotation(ptm.tm_min * 6 + (ptm.tm_sec / 12));
-		clock.secondsHand.setRotation(ptm.tm_sec * 6);
-		Render(window, clock, circle);
-	}
+	RunMainLoop(window, clock, circle);
 
 	return EXIT_SUCCESS;
 }
