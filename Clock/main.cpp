@@ -49,13 +49,13 @@ struct tm GetSystemTime()
 	return ptm;
 }
 
-void SeTheTimeForClockHands(Clocks &clock)
+void SetTheTimeForClockHands(Clocks &clock)
 {
 	struct tm ptm = GetSystemTime();
 
-	clock.hourHand.setRotation(ptm.tm_hour * 30 + (ptm.tm_min / 2));
-	clock.minuteHand.setRotation(ptm.tm_min * 6 + (ptm.tm_sec / 12));
-	clock.secondsHand.setRotation(ptm.tm_sec * 6);
+	clock.hourHand.setRotation(ptm.tm_hour * 30 + (ptm.tm_min / 2.f));
+	clock.minuteHand.setRotation(ptm.tm_min * 6 + (ptm.tm_sec / 12.f));
+	clock.secondsHand.setRotation(ptm.tm_sec * 6.f);
 }
 
 void ApplicationMainLoop(sf::RenderWindow &window, Application & application)
@@ -63,7 +63,7 @@ void ApplicationMainLoop(sf::RenderWindow &window, Application & application)
 	while (window.isOpen())
 	{
 		ProcessingEvent(window);
-		SeTheTimeForClockHands(application.clock);
+		SetTheTimeForClockHands(application.clock);
 		Render(window, application.clock, application.circle);
 	}
 }
