@@ -78,7 +78,6 @@ int main()
 {
 	sf::ContextSettings settings;
 	settings.antialiasingLevel = 8;
-
 	sf::RenderWindow window(sf::VideoMode(screenWidth, screenHeight), "SFML Analog Clock", sf::Style::Close, settings);
 
 	sf::Vector2f windowCenter = sf::Vector2f(window.getSize().x / 2.0f, window.getSize().y / 2.0f);
@@ -86,20 +85,14 @@ int main()
 	Application application;
 	InitializeApplication(application, windowCenter);
 
-	// Create sound effect
-	sf::SoundBuffer clockSoundBuffer;
-
-	if (!clockSoundBuffer.loadFromFile("resources/clock-1.wav"))
+	sf::Music clockTick;
+	if (!clockTick.openFromFile("resources/clock-1.wav"))
+	{
 		return EXIT_FAILURE;
-	sf::Sound clockTick;
-	clockTick.setBuffer(clockSoundBuffer);
-	clockTick.play();
+	}
 	clockTick.setLoop(true);
+	clockTick.play();
 	
-
-	application.circle.clockCircle.setTextureRect(sf::IntRect(40, 0, 500, 500));
-
 	ApplicationMainLoop(window, application);
-
 	return EXIT_SUCCESS;
 }
