@@ -38,7 +38,6 @@ void Render(sf::RenderWindow &window, Clocks const& clock, FigureCircle const& c
 	{
 		window.draw(clock.digit[i]);
 	}
-	window.draw(clock.digit[0]);
 
 	window.draw(clock.hourHand);
 	window.draw(clock.minuteHand);
