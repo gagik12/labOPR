@@ -2,17 +2,17 @@
 #include "circle.h"
 #include "Config.h"
 
-void Circle::CreateOutlineClock(sf::Vector2f const& windowCenter)
+void CreateOutlineClock(sf::CircleShape & clockCircle, sf::Vector2f const& windowCenter)
 {
-	clockCircle.setRadius(clockCircleSize);
+	clockCircle.setRadius(CLOCK_CIRCLE_SIZE);
 	clockCircle.setPointCount(100);
-	clockCircle.setOutlineThickness(clockCircleThickness);
+	clockCircle.setOutlineThickness(CLOCK_CIRCLE_THICKNESS);
 	clockCircle.setOutlineColor(sf::Color::Black);
 	clockCircle.setOrigin(clockCircle.getGlobalBounds().width / 2, clockCircle.getGlobalBounds().height / 2);
-	clockCircle.setPosition(windowCenter.x + clockCircleThickness, windowCenter.y + clockCircleThickness);
+	clockCircle.setPosition(windowCenter.x + CLOCK_CIRCLE_THICKNESS, windowCenter.y + CLOCK_CIRCLE_THICKNESS);
 }
 
-void Circle::CreateCircleAtCenter(sf::Vector2f const& windowCenter)
+void CreateCircleAtCenter(sf::CircleShape & centerCircle, sf::Vector2f const& windowCenter)
 {
 	centerCircle.setRadius(10);
 	centerCircle.setPointCount(100);
@@ -23,6 +23,6 @@ void Circle::CreateCircleAtCenter(sf::Vector2f const& windowCenter)
 
 void InitializeCircle(Circle &circle, sf::Vector2f const& windowCenter)
 {
-	circle.CreateOutlineClock(windowCenter);
-	circle.CreateCircleAtCenter(windowCenter);
+	CreateOutlineClock(circle.clockCircle, windowCenter);
+	CreateCircleAtCenter(circle.centerCircle, windowCenter);
 }
