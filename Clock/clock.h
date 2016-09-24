@@ -12,9 +12,9 @@ struct Clocks
 	sf::RectangleShape minuteHand;
 	sf::RectangleShape secondsHand;
 
-	void Clocks::CreateListDots(sf::Vector2f const& windowCenter);
-	void Clocks::CreateTimeHands(sf::Vector2f const& windowCenter);
-	void Clocks::CreateListDigit(sf::Vector2f const& windowCenter);
+	void CreateDotsList(sf::Vector2f const& windowCenter);
+	void CreateTimeHands(sf::Vector2f const& windowCenter);
+	void CreateDigitList(sf::Vector2f const& windowCenter);
 };
 
 void InitializeClock(Clocks &clock, sf::Vector2f const& windowCenter);

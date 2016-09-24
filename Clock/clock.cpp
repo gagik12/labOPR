@@ -3,7 +3,7 @@
 #include "Config.h"
 #include <string>
 
-void Clocks::CreateListDigit(sf::Vector2f const& windowCenter)
+void Clocks::CreateDigitList(sf::Vector2f const& windowCenter)
 {
 	if (!fontForDigit.loadFromFile("resources/font/Rotonda.ttf"))
 	{
@@ -13,49 +13,43 @@ void Clocks::CreateListDigit(sf::Vector2f const& windowCenter)
 	text.setFillColor(sf::Color::Black); 
 
 	float angle = 0;
-	sf::Vector2f positionDigit(0, 0);
-	int number = 0;
-	for (int i = 0; i<60; i++)
+	sf::Vector2f digitPosition(0, 0);
+
+	for (int i = 0; i < 60; i++)
 	{
-		positionDigit.x = (clockCircleSize - 35) * cos(angle - PI / 3.f);
-		positionDigit.y = (clockCircleSize - 35) * sin(angle - PI / 3.f);
+		digitPosition.x = (clockCircleSize - 35) * cos(angle - PI / 3.f);
+		digitPosition.y = (clockCircleSize - 35) * sin(angle - PI / 3.f);
 		if (i % 5 == 0)
 		{
+			int number = i / 5;
 			text.setString(std::to_string(number + 1));
 			digit[number] = text;
-			sf::Vector2f positionText(positionDigit + windowCenter);
-			digit[number].setPosition(positionText.x, positionText.y - digit[number].getGlobalBounds().height / 2.f);
+			sf::Vector2f positionText(digitPosition + windowCenter);
+			digit[number].setPosition(positionText.x, positionText.y - digit[i / 5].getGlobalBounds().height / 2.f);
 			digit[number].setOrigin(digit[number].getGlobalBounds().width / 2.f, digit[number].getGlobalBounds().height / 2.f);
-			++number;
-
 		}
-		angle = angle + ((2 * PI) / 60);
+		angle += (2 * PI) / 60;
 	}
 }
 
-void Clocks::CreateListDots(sf::Vector2f const& windowCenter)
+void Clocks::CreateDotsList(sf::Vector2f const& windowCenter)
 {
 	float angle = 0.0;
-	sf::Vector2f positionDot(0, 0);
+	sf::Vector2f dotPosition(0, 0);
 
-	for (int i = 0; i<60; i++)
+	for (int i = 0; i < 60; i++)
 	{
-		positionDot.x = (clockCircleSize - 10) * cos(angle);
-		positionDot.y = (clockCircleSize - 10) * sin(angle);
+		dotPosition.x = (clockCircleSize - 10) * cos(angle);
+		dotPosition.y = (clockCircleSize - 10) * sin(angle);
 
-		if (i % 5 == 0)
-		{
-			dot[i] = sf::CircleShape(3);
-		}
-		else
-		{
-			dot[i] = sf::CircleShape(1);
-		}
+		const float radius = (i % 5 == 0) ? 3.f : 1.f;
+		dot[i] = sf::CircleShape(radius);
+
 		dot[i].setFillColor(sf::Color::Black);
 		dot[i].setOrigin(dot[i].getGlobalBounds().width / 2, dot[i].getGlobalBounds().height / 2);
-		dot[i].setPosition(positionDot + windowCenter);
+		dot[i].setPosition(dotPosition + windowCenter);
 
-		angle = angle + ((2 * PI) / 60);
+		angle += (2 * PI) / 60;
 	}
 }
 
@@ -81,7 +75,7 @@ void Clocks::CreateTimeHands(sf::Vector2f const& windowCenter)
 
 void InitializeClock(Clocks &clock, sf::Vector2f const& windowCenter)
 {
-	clock.CreateListDots(windowCenter);
-	clock.CreateListDigit(windowCenter);
+	clock.CreateDotsList(windowCenter);
+	clock.CreateDigitList(windowCenter);
 	clock.CreateTimeHands(windowCenter);
 }

@@ -1,13 +1,13 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-struct FigureCircle
+struct Circle
 {
 	sf::CircleShape clockCircle;
 	sf::CircleShape centerCircle;
 
-	void FigureCircle::CreateOutlineClock(sf::Vector2f const& windowCenter);
-	void FigureCircle::CreateCircleAtCenter(sf::Vector2f const& windowCenter);
+	void CreateOutlineClock(sf::Vector2f const& windowCenter);
+	void CreateCircleAtCenter(sf::Vector2f const& windowCenter);
 };
 
-void InitializeCircle(FigureCircle &circle, sf::Vector2f const& windowCenter);
+void InitializeCircle(Circle &circle, sf::Vector2f const& windowCenter);

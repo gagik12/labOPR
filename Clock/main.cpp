@@ -8,11 +8,11 @@
 
 struct Application
 {
-	FigureCircle circle;
+	Circle circle;
 	Clocks clock;
 };
 
-void ProcessingEvent(sf::RenderWindow &window)
+void ProcessEvent(sf::RenderWindow &window)
 {
 	sf::Event event;
 	while (window.pollEvent(event))
@@ -24,17 +24,17 @@ void ProcessingEvent(sf::RenderWindow &window)
 	}
 }
 
-void Render(sf::RenderWindow &window, Clocks const& clock, FigureCircle const& circle)
+void Render(sf::RenderWindow &window, Clocks const& clock, Circle const& circle)
 {
 	window.clear(sf::Color::White);
 	window.draw(circle.clockCircle);
 
-	for (int i = 0; i<60; i++)
+	for (int i = 0; i < 60; i++)
 	{
 		window.draw(clock.dot[i]);
 	}
 
-	for (int i = 0; i<12; i++)
+	for (int i = 0; i < 12; i++)
 	{
 		window.draw(clock.digit[i]);
 	}
@@ -46,7 +46,7 @@ void Render(sf::RenderWindow &window, Clocks const& clock, FigureCircle const& c
 	window.display();
 }
 
-struct tm GetSystemTime()
+struct tm GetLocalSystemTime()
 {
 	std::time_t currentTime = std::time(NULL);
 	struct tm ptm;
@@ -54,21 +54,21 @@ struct tm GetSystemTime()
 	return ptm;
 }
 
-void SetTheTimeForClockHands(Clocks &clock)
+void UpdateTheTimeForClockHands(Clocks &clock)
 {
-	struct tm ptm = GetSystemTime();
+	struct tm ptm = GetLocalSystemTime();
 
 	clock.hourHand.setRotation(ptm.tm_hour * 30 + (ptm.tm_min / 2.f));
 	clock.minuteHand.setRotation(ptm.tm_min * 6 + (ptm.tm_sec / 12.f));
 	clock.secondsHand.setRotation(ptm.tm_sec * 6.f);
 }
 
-void ApplicationMainLoop(sf::RenderWindow &window, Application & application)
+void EnterApplicationMainLoop(sf::RenderWindow &window, Application & application)
 {
 	while (window.isOpen())
 	{
-		ProcessingEvent(window);
-		SetTheTimeForClockHands(application.clock);
+		ProcessEvent(window);
+		UpdateTheTimeForClockHands(application.clock);
 		Render(window, application.clock, application.circle);
 	}
 }
@@ -97,6 +97,6 @@ int main()
 	clockTick.setLoop(true);
 	clockTick.play();
 	
-	ApplicationMainLoop(window, application);
+	EnterApplicationMainLoop(window, application);
 	return EXIT_SUCCESS;
 }

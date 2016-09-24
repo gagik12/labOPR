@@ -2,7 +2,7 @@
 #include "circle.h"
 #include "Config.h"
 
-void FigureCircle::CreateOutlineClock(sf::Vector2f const& windowCenter)
+void Circle::CreateOutlineClock(sf::Vector2f const& windowCenter)
 {
 	clockCircle.setRadius(clockCircleSize);
 	clockCircle.setPointCount(100);
@@ -12,7 +12,7 @@ void FigureCircle::CreateOutlineClock(sf::Vector2f const& windowCenter)
 	clockCircle.setPosition(windowCenter.x + clockCircleThickness, windowCenter.y + clockCircleThickness);
 }
 
-void FigureCircle::CreateCircleAtCenter(sf::Vector2f const& windowCenter)
+void Circle::CreateCircleAtCenter(sf::Vector2f const& windowCenter)
 {
 	centerCircle.setRadius(10);
 	centerCircle.setPointCount(100);
@@ -21,7 +21,7 @@ void FigureCircle::CreateCircleAtCenter(sf::Vector2f const& windowCenter)
 	centerCircle.setPosition(windowCenter);
 }
 
-void InitializeCircle(FigureCircle &circle, sf::Vector2f const& windowCenter)
+void InitializeCircle(Circle &circle, sf::Vector2f const& windowCenter)
 {
 	circle.CreateOutlineClock(windowCenter);
 	circle.CreateCircleAtCenter(windowCenter);
